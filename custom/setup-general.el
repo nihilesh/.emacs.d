@@ -19,6 +19,7 @@
 (global-set-key (kbd "<mouse-4>") 'scroll-down-1-lines) ;
 (global-set-key (kbd "<mouse-5>") 'scroll-up-1-lines) ;
 
+(global-set-key (kbd "C-c o") 'iedit-mode)
 
 (setq gc-cons-threshold 100000000)
 (setq inhibit-startup-message t)
