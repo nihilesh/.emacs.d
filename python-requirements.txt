@@ -5,3 +5,5 @@ ipython==5.8.0
 jupyter==1.0.0
 flake8==3.7.7
 autopep8==1.4.4
+virtualenv==16.6.0
+virtualenvwrapper==4.8.4
