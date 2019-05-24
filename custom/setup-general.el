@@ -57,6 +57,9 @@
 
 (global-linum-mode t)
 (setq linum-format "%4d \u2502 ")
+(setq comment-set-column t)
+(setq column-number-mode t)
+
 
 (add-hook 'after-init-hook 'global-company-mode)
 

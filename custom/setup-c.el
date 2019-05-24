@@ -80,6 +80,7 @@ the directories in the INCLUDE environment variable."
 (require 'semantic/bovine/c)
 (add-to-list 'semantic-lex-c-preprocessor-symbol-file
              "/usr/local/Cellar/gcc/8.3.0_2/lib/gcc/8/gcc/x86_64-apple-darwin18/8.3.0/include/stddef.h")
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
 ;;sr-speedbar - tree
