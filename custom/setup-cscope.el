@@ -1,4 +1,4 @@
-(use-package 'xcscope
-   (cscope-setup))
+(use-package xcscope)
+(cscope-setup)
 
 (provide 'setup-cscope)
