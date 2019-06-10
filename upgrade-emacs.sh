@@ -1,4 +1,7 @@
 sudo add-apt-repository ppa:kelleyk/emacs
 sudo apt update
-sudo apt install emacs26
-sudo apt install cscope
+sudo apt install -y \
+	emacs26 \
+    cscope \
+    clang
+ 

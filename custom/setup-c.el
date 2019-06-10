@@ -75,8 +75,8 @@ the directories in the INCLUDE environment variable."
 
 ;; Folding
 (set-default 'semantic-case-fold t)
-(semantic-add-system-include "~/ws/Tac/")
-(semantic-add-system-include "/Library/Developer/CommandLineTools/usr/include/c++/v1")
+(semantic-add-system-include "~/ws/tacc/")
+;;(semantic-add-system-include "/Library/Developer/CommandLineTools/usr/include/c++/v1")
 (require 'semantic/bovine/c)
 (add-to-list 'semantic-lex-c-preprocessor-symbol-file
              "/usr/local/Cellar/gcc/8.3.0_2/lib/gcc/8/gcc/x86_64-apple-darwin18/8.3.0/include/stddef.h")
