@@ -8,6 +8,7 @@ sudo apt install -y \
     cscope \
     clang
 
-[ -f /etc/alternatives/emacs-26.2 ] && echo "/etc/alternatives/emacs-26.2 not installed properly"
-ln -fs /etc/alternatives/emacs-26.2 /etc/alteratives/emacs
-[ emacs --version | head -1 | awk '{print $NF }' | grep 26 ] && "Failed to upgrade emacs to emacs-26"
+ln -f -s /etc/alternatives/emacs-26.2 /etc/alternatives/emacs
+[[ ! "$ver" = "26"* ]] && echo "Failed to upgrade emacs"
+var=$(emacs --version | head -1 | awk '{print $NF}' | awk -F . '{print $1}')
+(( $var >= 26 )) && echo "emacs version is upgraded"
