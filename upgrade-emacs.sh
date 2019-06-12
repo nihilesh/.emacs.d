@@ -10,5 +10,4 @@ sudo apt install -y \
 
 [ -f /etc/alternatives/emacs-26.2 ] && echo "/etc/alternatives/emacs-26.2 not installed properly"
 ln -fs /etc/alternatives/emacs-26.2 /etc/alteratives/emacs
-[ -f /etc/alteratives/emacs ] && echo "Failed to map logical links properly"
-
+[ emacs --version | head -1 | awk '{print $NF }' | grep 26 ] && "Failed to upgrade emacs to emacs-26"
