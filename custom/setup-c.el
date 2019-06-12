@@ -1,24 +1,60 @@
 
-;; hs-minor-mode for folding source code
-(add-hook 'c-mode-common-hook 'hs-minor-mode)
-
-;; Available C style:
-;; “gnu”: The default style for GNU projects
-;; “k&r”: What Kernighan and Ritchie, the authors of C used in their book
-;; “bsd”: What BSD developers use, aka “Allman style” after Eric Allman.
-;; “whitesmith”: Popularized by the examples that came with Whitesmiths C, an early commercial C compiler.
-;; “stroustrup”: What Stroustrup, the author of C++ used in his book
-;; “ellemtel”: Popular C++ coding standards as defined by “Programming in C++, Rules and Recommendations,” Erik Nyquist and Mats Henricson, Ellemtel
-;; “linux”: What the Linux developers use for kernel development
-;; “python”: What Python developers use for extension modules
-;; “java”: The default style for java-mode (see below)
-;; “user”: When you want to define your own style
-(setq c-default-style "linux") ;; set style to "linux"
-
 (use-package cc-mode
   :init
   (define-key c-mode-map  [(tab)] 'company-complete)
   (define-key c++-mode-map  [(tab)] 'company-complete))
+
+;; hs-minor-mode for folding source code
+(add-hook 'c-mode-common-hook 'hs-minor-mode)
+
+;; To enable C++ header files in C++ mode
+(require 'cl)
+
+;; To enable Tacc files in C++ mode
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.tac\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.tin\\'" . c++-mode))
+
+;; Set Fallback mode to C++ for include folder files
+(defun file-in-directory-list-p (file dirlist)
+  "Returns true if the file specified is contained within one of
+the directories in the list. The directories must also exist."
+  (let ((dirs (mapcar 'expand-file-name dirlist))
+        (filedir (expand-file-name (file-name-directory file))))
+    (and
+     (file-directory-p filedir)
+     (member-if (lambda (x) ; Check directory prefix matches
+                  (string-match (substring x 0 (min(length filedir) (length x))) filedir))
+                dirs))))
+(defun buffer-standard-include-p ()
+  "Returns true if the current buffer is contained within one of
+the directories in the INCLUDE environment variable."
+  (and (getenv "INCLUDE")
+       (file-in-directory-list-p buffer-file-name (split-string (getenv "INCLUDE") path-separator))))
+(add-to-list 'magic-fallback-mode-alist '(buffer-standard-include-p . c++-mode))
+
+
+;;;;;; Style and Editing
+(setq c-default-style '((java-mode . "java")
+                        (awk-mode . "awk")
+                        (other . "linux"))
+      c-basic-offset 4) ;; set style to "linux"
+
+;; Folding
+(set-default 'semantic-case-fold t)
+(require 'semantic/bovine/c)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+
+;;;; company complete
+;; function-args
+(use-package function-args
+  :init
+  (fa-config-default)
+  (define-key c-mode-map  [(tab)] 'company-complete)
+  (define-key c++-mode-map  [(tab)] 'company-complete))
+
+
 
 ;; Compilation
 (global-set-key (kbd "<f5>") (lambda ()
@@ -35,52 +71,13 @@
  gdb-show-main t
  )
 
-;; company complete
+;;;; Source Lookup - TAGS/CSCOPE
 
-
-;; function-args
-(use-package function-args
-  :init
-  (fa-config-default)
-  (define-key c-mode-map  [(tab)] 'company-complete)
-  (define-key c++-mode-map  [(tab)] 'company-complete))
-
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-(add-to-list 'auto-mode-alist '("\\.tac\\'" . c++-mode))
-(add-to-list 'auto-mode-alist '("\\.tin\\'" . c++-mode))
-
-;; To enable C++ header files in C++ mode
-(require 'cl)
-
-(defun file-in-directory-list-p (file dirlist)
-  "Returns true if the file specified is contained within one of
-the directories in the list. The directories must also exist."
-  (let ((dirs (mapcar 'expand-file-name dirlist))
-        (filedir (expand-file-name (file-name-directory file))))
-    (and
-     (file-directory-p filedir)
-     (member-if (lambda (x) ; Check directory prefix matches
-                  (string-match (substring x 0 (min(length filedir) (length x))) filedir))
-                dirs))))
-
-(defun buffer-standard-include-p ()
-  "Returns true if the current buffer is contained within one of
-the directories in the INCLUDE environment variable."
-  (and (getenv "INCLUDE")
-       (file-in-directory-list-p buffer-file-name (split-string (getenv "INCLUDE") path-separator))))
-
-(add-to-list 'magic-fallback-mode-alist '(buffer-standard-include-p . c++-mode))
-
-
-
-;; Folding
-(set-default 'semantic-case-fold t)
-(semantic-add-system-include "~/ws/tacc/")
+;; semantic settings
+;;(semantic-add-system-include "~/ws/tacc/")
 ;;(semantic-add-system-include "/Library/Developer/CommandLineTools/usr/include/c++/v1")
-(require 'semantic/bovine/c)
-(add-to-list 'semantic-lex-c-preprocessor-symbol-file
-             "/usr/local/Cellar/gcc/8.3.0_2/lib/gcc/8/gcc/x86_64-apple-darwin18/8.3.0/include/stddef.h")
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;;(add-to-list 'semantic-lex-c-preprocessor-symbol-file
+;;             "/usr/local/Cellar/gcc/8.3.0_2/lib/gcc/8/gcc/x86_64-apple-darwin18/8.3.0/include/stddef.h")
 
 
 ;;sr-speedbar - tree
@@ -116,14 +113,11 @@ the directories in the INCLUDE environment variable."
 
 (defun select-next-window ()
   (other-window 1))
-
 ;; select previous window for sr-scrollbar
 (defun my-sr-speedbar-open-hook ()
   (add-hook 'speedbar-before-visiting-file-hook 'select-next-window t)
   (add-hook 'speedbar-before-visiting-tag-hook 'select-next-window t)
   )
-
 (advice-add 'sr-speedbar-open :after #'my-sr-speedbar-open-hook)
-
 
 (provide 'setup-c)

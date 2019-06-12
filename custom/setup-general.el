@@ -5,6 +5,20 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (xterm-mouse-mode)
+(global-linum-mode t)
+(setq linum-format "%4d \u2502 ")
+(setq comment-set-column t)
+(setq column-number-mode t)
+(setq x-select-enable-primary t)
+(setq x-select-enable-clipboard nil)
+(setq select-enable-primary t)
+(setq select-enable-clipboard  nil)
+(setq save-interprogram-paste-before-kill t)
+(setq x-select-enable-clipboard-manager t)
+(delete-selection-mode 1)
+
+(global-set-key (kbd "<mouse-2>") 'x-clipboard-yank)
+(global-set-key (kbd "<mouse-2>") 'clipboard-yank)
 
 (defun scroll-up-1-lines ()
   "Scroll up 1 lines"
@@ -54,11 +68,6 @@
 ;; activate whitespace-mode to view all whitespace characters
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 (windmove-default-keybindings)
-
-(global-linum-mode t)
-(setq linum-format "%4d \u2502 ")
-(setq comment-set-column t)
-(setq column-number-mode t)
 
 
 (add-hook 'after-init-hook 'global-company-mode)
