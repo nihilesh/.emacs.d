@@ -199,6 +199,7 @@ point reaches the beginning or end of the buffer, stop there."
 ;; Indentation
 (setq-default indent-tabs-mode nil)
 (global-set-key (kbd "RET") 'newline-and-indent)
+(setq-default show-paren-mode t)
 
 ;; show whitespace in diff-mode
 (add-hook 'diff-mode-hook (lambda ()
