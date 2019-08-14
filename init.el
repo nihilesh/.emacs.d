@@ -27,6 +27,7 @@
 (require 'setup-editing)
 (require 'setup-c)
 (require 'setup-python)
+(require 'setup-keys)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
