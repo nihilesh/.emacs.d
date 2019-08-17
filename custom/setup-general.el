@@ -40,14 +40,6 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-
-;; Package: projejctile
-(use-package projectile
-  :init
-  (projectile-global-mode)
-  (setq projectile-enable-caching t))
-
-
 ;; show unncessary whitespace that can mess up your diff
 (add-hook 'prog-mode-hook
           (lambda () (interactive)
@@ -69,7 +61,25 @@
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 (windmove-default-keybindings)
 
-
 (add-hook 'after-init-hook 'global-company-mode)
+
+;; Which key assistance, courtesy: http://bnbeckwith.com/bnb-emacs/
+(use-package which-key
+  :ensure t
+  :diminish which-key-mode
+  :init
+  (which-key-mode)
+  (which-key-setup-side-window-right-bottom)
+  (setq which-key-max-description-length 60))
+
+(defvar display-buffer-same-window-commands
+  '(occur-mode-goto-occurrence compile-goto-error))
+
+(add-to-list 'display-buffer-alist
+             '((lambda (&rest _)
+                 (memq this-command display-buffer-same-window-commands))
+               (display-buffer-reuse-window
+                display-buffer-same-window)
+               (inhibit-same-window . nil)))
 
 (provide 'setup-general)

@@ -133,6 +133,7 @@
 
     (helm-mode 1)
 
+    (setq projectile-keymap-prefix (kbd "C-c C-p"))
     (use-package helm-projectile
       :init
       (helm-projectile-on)

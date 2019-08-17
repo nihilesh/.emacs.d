@@ -43,15 +43,14 @@ there's a region, all lines that region covers will be duplicated."
   (interactive)
   (let ((deactivate-mark t))
     (call-process-region (point) (mark) "pbcopy")))
-
 (defun pbpaste ()
   (interactive)
   (call-process-region (point) (if mark-active (mark) (point)) "pbpaste" t t))
-
 (defun pbcut ()
   (interactive)
   (pbcopy)
   (delete-region (region-beginning) (region-end)))
+(global-set-key (kbd "M-W") 'pbcopy)
 
 ;; Package: undo-tree
 ;; GROUP: Editing -> Undo -> Undo Tree

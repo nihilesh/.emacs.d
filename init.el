@@ -1,7 +1,6 @@
 (require 'package)
 (add-to-list 'package-archives
          '("melpa" . "http://melpa.org/packages/") t)
-
 (package-initialize)
 
 (when (not package-archive-contents)
@@ -15,6 +14,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/custom")
 
+(require 'setup-projectile)
 (use-package yasnippet)
 (use-package yasnippet-snippets)
 
@@ -43,9 +43,10 @@
    (quote
     ("8329191fba7b72c4d4523ec01bf06cf206d3020d543eb475808f7f980bd3a55e" "47ec21abaa6642fefec1b7ace282221574c2dd7ef7715c099af5629926eb4fd7" default)))
  '(frame-brackground-mode (quote dark))
+ '(grep-scroll-output t)
  '(package-selected-packages
    (quote
-    (evil xcscope ipython-shell-send yasnippet-snippets helm-c-yasnippet py-autopep8 material-theme flycheck elpy ein better-defaults sr-speedbar function-args company-c-headers gruber-darker-theme zygospore helm-gtags helm yasnippet ws-butler volatile-highlights use-package undo-tree iedit dtrt-indent counsel-projectile company clean-aindent-mode anzu))))
+    (docker-tramp which-key evil xcscope ipython-shell-send yasnippet-snippets helm-c-yasnippet py-autopep8 material-theme flycheck elpy ein better-defaults sr-speedbar function-args company-c-headers gruber-darker-theme zygospore helm-gtags helm yasnippet ws-butler volatile-highlights use-package undo-tree iedit dtrt-indent counsel-projectile company clean-aindent-mode anzu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
