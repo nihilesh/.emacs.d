@@ -46,7 +46,7 @@
  '(grep-scroll-output t)
  '(package-selected-packages
    (quote
-    (docker-tramp which-key evil xcscope ipython-shell-send yasnippet-snippets helm-c-yasnippet py-autopep8 material-theme flycheck elpy ein better-defaults sr-speedbar function-args company-c-headers gruber-darker-theme zygospore helm-gtags helm yasnippet ws-butler volatile-highlights use-package undo-tree iedit dtrt-indent counsel-projectile company clean-aindent-mode anzu))))
+    (ripgrep docker-tramp which-key evil xcscope ipython-shell-send yasnippet-snippets helm-c-yasnippet py-autopep8 material-theme flycheck elpy ein better-defaults sr-speedbar function-args company-c-headers gruber-darker-theme zygospore helm-gtags helm yasnippet ws-butler volatile-highlights use-package undo-tree iedit dtrt-indent counsel-projectile company clean-aindent-mode anzu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
